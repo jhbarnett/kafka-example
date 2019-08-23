@@ -14,7 +14,7 @@ def json_serializer(v): return json.dumps(v).encode('utf-8')
 
 
 class SyncProducer:
-    topic = "sync.users.events"
+    topic = "users"
 
     def __init__(self):
         self._producer = KafkaProducer(

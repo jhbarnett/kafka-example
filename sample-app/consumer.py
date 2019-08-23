@@ -7,17 +7,15 @@ import json
 logger = structlog.getLogger(__name__)
 
 
-def json_deserializer(v): return json.loads(v, encoding='utf-8')
+def json_deserializer(v): return json.loads(v.decode('utf-8'))
 
 
 class SyncConsumer:
-    group = "sync"
-    topic = 'sync.users.events'
+    topic = "users"
 
     def __init__(self):
         self._consumer = KafkaConsumer(
             self.topic,
-            group_id=self.group,
             bootstrap_servers=os.environ['KAFKA_BOOTSTRAP_SERVERS'],
             key_deserializer=json_deserializer,
             value_deserializer=json_deserializer,
